@@ -1,5 +1,11 @@
 //Knuth-Morris-Pratt Algorithm
 
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
 vector<int> piVectorPopulation (const string &pattern){  //pattern is yet to be defined but this will be a vector of the pattern we are looking for
     
     int n = pattern.size();
@@ -17,4 +23,20 @@ vector<int> piVectorPopulation (const string &pattern){  //pattern is yet to be 
         pi[i] = j;
     }
     return pi;
+}
+
+
+int main() {
+    string pattern = "ABABACABCE";
+    vector<int> pi = piVectorPopulation(pattern);
+
+    cout << "pattern: " << pattern << "\n";
+    cout << "Pi Table: ";
+    
+    for (int v : pi){
+        cout << v << " ";
+    }
+    cout << "\n";
+
+    return 0;
 }
