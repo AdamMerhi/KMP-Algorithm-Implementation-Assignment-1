@@ -1,4 +1,4 @@
-//Knuth-Morris-Pratt Algorithm
+//Knuth-Morris-Pratt Algorithm - by Adam Merhi
 
 #include <iostream>
 #include <vector>
@@ -49,6 +49,7 @@ vector<int> kmpSearch (const string &text, const string &pattern){ // the main f
 
 
 int main() {
+    string text = "ZZABABACABCEYYABABACABCEZZ";
     string pattern = "ABABACABCE";
     vector<int> pi = piTablePopulation(pattern);
 
@@ -57,6 +58,16 @@ int main() {
     
     for (int v : pi){
         cout << v << " ";
+    }
+    cout << "\n";
+
+    vector<int> patternsFound = kmpSearch(text, pattern);
+
+    cout << "Text: " << text << "\n";
+    cout << "Pattern found at indices(s): ";
+
+    for(int i : patternsFound){
+        cout << i << " ";
     }
     cout << "\n";
 
