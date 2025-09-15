@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-std::vector<int> piVectorPopulation (const std::string &pattern);
+std::vector<int> piTablePopulation (const std::string &pattern);
 std::vector<int> kmpSearch (const std::string &text, const std::string &pattern);
 
 #endif
