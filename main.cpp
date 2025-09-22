@@ -15,6 +15,15 @@ bool vecCompare (const vector<int>& a, const vector<int>& b){ //declares two vec
     return true;
 }
 
+void printVector(const vector<int>& v){
+    cout << "{";
+    for (size_t i = 0; i < v.size(); i++){
+        cout << v[i];
+        if (i +1 < v.size()) cout << ", ";
+    }
+    cout << "}";
+}
+
 void piTableTest(){
     string pattern = "ABABACABCE";
     std::vector<int> expected {0,0,1,2,3,0,1,2,0,0};
@@ -37,19 +46,83 @@ void kmpSearchTest1(){
         cout << "kmpSearchTest1: PASS\n";
     } else{
         cout << "kmpSearchTest1: FAIL\n";
+        cout << "Expected: ";
+        printVector(expected);
+        cout << "\nReturned :";
+        printVector(output);
+        cout << "\n";
     }
 }
 
-void kmpSearchTest1(){
-    string text = "ZZABABACABCEYYABABACABCEZZ";
-    string pattern = "ABABACABCE";
-    vector<int> expected {2,14};
+void kmpSearchTest2(){
+    string text = "aaaaa";
+    string pattern = "aa";
+    vector<int> expected {0,1,2,3};
     vector<int> output = kmpSearch(text, pattern);
 
     if(vecCompare(output, expected)){
-        cout << "kmpSearchTest1: PASS\n";
+        cout << "kmpSearchTest2: PASS\n";
     } else{
-        cout << "kmpSearchTest1: FAIL\n";
+        cout << "kmpSearchTest2: FAIL\n";
+        cout << "Expected: ";
+        printVector(expected);
+        cout << "\nReturned :";
+        printVector(output);
+        cout << "\n";
+    }
+}
+
+void kmpSearchTest3(){
+    string text = "XYZABC";
+    string pattern = "A";
+    vector<int> expected {3};
+    vector<int> output = kmpSearch(text, pattern);
+
+    if(vecCompare(output, expected)){
+        cout << "kmpSearchTest3: PASS\n";
+    } else{
+        cout << "kmpSearchTest3: FAIL\n";
+        cout << "Expected: ";
+        printVector(expected);
+        cout << "\nReturned :";
+        printVector(output);
+        cout << "\n";
+    }
+}
+
+void kmpNoMatchTest(){
+    string text = "ABCDEFG";
+    string pattern = "XYZ";
+    vector<int> expected {};
+    vector<int> output = kmpSearch(text, pattern);
+
+    if(vecCompare(output, expected)){
+        cout << "kmpNoMatchTest: PASS\n";
+    } else{
+        cout << "kmpNoMatchTest: FAIL\n";
+        cout << "Expected: ";
+        printVector(expected);
+        cout << "\nReturned :";
+        printVector(output);
+        cout << "\n";
+    }
+}
+
+void kmpCaseSensitive(){
+    string text = "aAbBcC";
+    string pattern = "AbB";
+    vector<int> expected {1};
+    vector<int> output = kmpSearch(text, pattern);
+
+    if(vecCompare(output, expected)){
+        cout << "kmpCaseSensitive: PASS\n";
+    } else{
+        cout << "kmpCaseSensitive: FAIL\n";
+        cout << "Expected: ";
+        printVector(expected);
+        cout << "\nReturned :";
+        printVector(output);
+        cout << "\n";
     }
 }
 
@@ -59,10 +132,11 @@ vector<int> naiveMethod(const string &text, const string &pattern){ // creation 
     for(int i =0; i <= text.size() - pattern.size(); i++){
         int j = 0;
         while (j < pattern.size() && text[i + j] == pattern[j]){
-            if( j == pattern.size()) match.push_back(i);
+            j++;
         }
-        return match;
+        if( j == pattern.size()) match.push_back(i);
     }
+    return match;
 }
 
 void testKMPvsNAIVE() {
@@ -80,11 +154,20 @@ void testKMPvsNAIVE() {
     kmpSearch(text, pattern);
     auto stopKmp = chrono::high_resolution_clock::now();
 
+    int naiveTime = chrono::duration_cast<chrono::microseconds> (stopNaive - startNaive).count(); //using chrono to cast the time into an integer so we can do simple maths functions from a time format
+    int kmpTime = chrono::duration_cast<chrono::microseconds> (stopKmp - startKmp).count(); // same as above
 
+    cout << "Naive time: " << naiveTime << "\n";
+    cout << "KMP time: " << kmpTime << "\n";
 }
 
 int main() {
     piTableTest();
     kmpSearchTest1();
+    kmpSearchTest2();
+    kmpSearchTest3();
+    kmpNoMatchTest();
+    kmpCaseSensitive();
+    testKMPvsNAIVE(); 
     return 0; 
 }
