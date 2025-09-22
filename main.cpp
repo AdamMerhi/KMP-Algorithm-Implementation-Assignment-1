@@ -4,7 +4,9 @@
 #include <string>
 #include <chrono>
 #include "Knuth-Morris-Pratt Algorithm.cpp"
+#define RUN_KMP_TEST(output, expected) runKmpTest(__func__, output, expected)
 
+// BELOW ARE HELPER FUNCTIONS
 bool vecCompare (const vector<int>& a, const vector<int>& b){ //declares two vectors which cannot be modified. Data referenced
     if (a.size() != b.size()) return false; // if the size of both vectors do not equal, return false
     for(size_t i = 0; i < a.size(); i++){ // loops over vector a
@@ -37,6 +39,7 @@ void runKmpTest(const string &testName, const vector<int> &output, const vector<
     }
 }
 
+//BELOW IS PI TABLE TESTING
 void piTableTest(){
     string pattern = "ABABACABCE";
     vector<int> expected {0,0,1,2,3,0,1,2,0,0};
@@ -49,13 +52,14 @@ void piTableTest(){
     }
 }
 
+//BELOW IS KMP TESTING
 void kmpSearchTest1(){
     string text = "ZZABABACABCEYYABABACABCEZZ";
     string pattern = "ABABACABCE";
     vector<int> expected {2,14};
     vector<int> output = kmpSearch(text, pattern);
 
-    runKmpTest("kmpSearchTest1", output, expected);
+    RUN_KMP_TEST(output, expected);
 }
 
 void kmpSearchTest2(){
@@ -64,7 +68,7 @@ void kmpSearchTest2(){
     vector<int> expected {0,1,2,3};
     vector<int> output = kmpSearch(text, pattern);
 
-    runKmpTest("kmpSearchTest2", output, expected);
+    RUN_KMP_TEST(output, expected);
 
 }
 
@@ -74,7 +78,7 @@ void kmpSearchTest3(){
     vector<int> expected {3};
     vector<int> output = kmpSearch(text, pattern);
 
-    runKmpTest("kmpSearchTest3", output, expected);
+    RUN_KMP_TEST(output, expected);
 }
 
 void kmpNoMatchTest(){
@@ -83,7 +87,7 @@ void kmpNoMatchTest(){
     vector<int> expected {};
     vector<int> output = kmpSearch(text, pattern);
 
-    runKmpTest("kmpNoMatchTest", output, expected);
+    RUN_KMP_TEST(output, expected);
 }
 
 void kmpCaseSensitive(){
@@ -92,7 +96,7 @@ void kmpCaseSensitive(){
     vector<int> expected {1};
     vector<int> output = kmpSearch(text, pattern);
 
-    runKmpTest("kmpCaseSensitive", output, expected);
+    RUN_KMP_TEST(output, expected);
 }
 
 vector<int> naiveMethod(const string &text, const string &pattern){ // creation of naive method | Helper for the test- the slow version of kmp which has a time complexity of 0(mn) instead of kmp which has o(m+n)
