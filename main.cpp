@@ -15,19 +15,32 @@ bool vecCompare (const vector<int>& a, const vector<int>& b){ //declares two vec
     return true;
 }
 
-void printVector(const vector<int>& v){
+void printVector(const vector<int>& v){ // helper function to print vector for testing and troubleshooting
     cout << "{";
-    for (size_t i = 0; i < v.size(); i++){
-        cout << v[i];
-        if (i +1 < v.size()) cout << ", ";
+    for (size_t i = 0; i < v.size(); i++){ //loops through bector
+        cout << v[i]; // prints index
+        if (i +1 < v.size()) cout << ", "; // if the index isnt the last index, ad a comma and space 
     }
-    cout << "}";
+    cout << "}"; //otherwise close the parathesis
+}
+
+void runKmpTest(const string &testName, const vector<int> &output, const vector<int> &expected){ //helper function, using object orientated instead of rewriting this for every test
+    if(vecCompare(output, expected)){ // instead of testing this block of code at every test, we just recall this method
+        cout << testName << ": PASS\n";
+    } else{
+        cout << testName << ": FAIL\n";
+        cout << "Expected: ";
+        printVector(expected);
+        cout << "\nReturned: ";
+        printVector(output);
+        cout << "\n";
+    }
 }
 
 void piTableTest(){
     string pattern = "ABABACABCE";
-    std::vector<int> expected {0,0,1,2,3,0,1,2,0,0};
-    std::vector<int> output = piTablePopulation(pattern);    
+    vector<int> expected {0,0,1,2,3,0,1,2,0,0};
+    vector<int> output = piTablePopulation(pattern);    
 
     if (vecCompare(output, expected)){
         cout << "piTableTest: PASS\n";
@@ -42,16 +55,7 @@ void kmpSearchTest1(){
     vector<int> expected {2,14};
     vector<int> output = kmpSearch(text, pattern);
 
-    if(vecCompare(output, expected)){
-        cout << "kmpSearchTest1: PASS\n";
-    } else{
-        cout << "kmpSearchTest1: FAIL\n";
-        cout << "Expected: ";
-        printVector(expected);
-        cout << "\nReturned :";
-        printVector(output);
-        cout << "\n";
-    }
+    runKmpTest("kmpSearchTest1", output, expected);
 }
 
 void kmpSearchTest2(){
@@ -60,16 +64,8 @@ void kmpSearchTest2(){
     vector<int> expected {0,1,2,3};
     vector<int> output = kmpSearch(text, pattern);
 
-    if(vecCompare(output, expected)){
-        cout << "kmpSearchTest2: PASS\n";
-    } else{
-        cout << "kmpSearchTest2: FAIL\n";
-        cout << "Expected: ";
-        printVector(expected);
-        cout << "\nReturned :";
-        printVector(output);
-        cout << "\n";
-    }
+    runKmpTest("kmpSearchTest2", output, expected);
+
 }
 
 void kmpSearchTest3(){
@@ -78,16 +74,7 @@ void kmpSearchTest3(){
     vector<int> expected {3};
     vector<int> output = kmpSearch(text, pattern);
 
-    if(vecCompare(output, expected)){
-        cout << "kmpSearchTest3: PASS\n";
-    } else{
-        cout << "kmpSearchTest3: FAIL\n";
-        cout << "Expected: ";
-        printVector(expected);
-        cout << "\nReturned :";
-        printVector(output);
-        cout << "\n";
-    }
+    runKmpTest("kmpSearchTest3", output, expected);
 }
 
 void kmpNoMatchTest(){
@@ -96,16 +83,7 @@ void kmpNoMatchTest(){
     vector<int> expected {};
     vector<int> output = kmpSearch(text, pattern);
 
-    if(vecCompare(output, expected)){
-        cout << "kmpNoMatchTest: PASS\n";
-    } else{
-        cout << "kmpNoMatchTest: FAIL\n";
-        cout << "Expected: ";
-        printVector(expected);
-        cout << "\nReturned :";
-        printVector(output);
-        cout << "\n";
-    }
+    runKmpTest("kmpNoMatchTest", output, expected);
 }
 
 void kmpCaseSensitive(){
@@ -114,16 +92,7 @@ void kmpCaseSensitive(){
     vector<int> expected {1};
     vector<int> output = kmpSearch(text, pattern);
 
-    if(vecCompare(output, expected)){
-        cout << "kmpCaseSensitive: PASS\n";
-    } else{
-        cout << "kmpCaseSensitive: FAIL\n";
-        cout << "Expected: ";
-        printVector(expected);
-        cout << "\nReturned :";
-        printVector(output);
-        cout << "\n";
-    }
+    runKmpTest("kmpCaseSensitive", output, expected);
 }
 
 vector<int> naiveMethod(const string &text, const string &pattern){ // creation of naive method | Helper for the test- the slow version of kmp which has a time complexity of 0(mn) instead of kmp which has o(m+n)
