@@ -16,18 +16,44 @@ bool vecCompare (const vector<int>& a, const vector<int>& b){ //declares two vec
 
 void piTableTest(){
     string pattern = "ABABACABCE";
-    std::vector<int> result {0,0,1,2,3,0,1,2,0,0};
+    std::vector<int> expected {0,0,1,2,3,0,1,2,0,0};
     std::vector<int> output = piTablePopulation(pattern);    
 
-    if (vecCompare(output, result)){
+    if (vecCompare(output, expected)){
         cout << "piTableTest: PASS\n";
     } else {
         cout << "piTableTest: FAIL\n";
     }
+}
 
+void kmpSearchTest1(){
+    string text = "ZZABABACABCEYYABABACABCEZZ";
+    string pattern = "ABABACABCE";
+    vector<int> expected {2,14};
+    vector<int> output = kmpSearch(text, pattern);
+
+    if(vecCompare(output, expected)){
+        cout << "kmpSearchTest1: PASS\n";
+    } else{
+        cout << "kmpSearchTest1: FAIL\n";
+    }
+}
+
+void kmpSearchTest1(){
+    string text = "ZZABABACABCEYYABABACABCEZZ";
+    string pattern = "ABABACABCE";
+    vector<int> expected {2,14};
+    vector<int> output = kmpSearch(text, pattern);
+
+    if(vecCompare(output, expected)){
+        cout << "kmpSearchTest1: PASS\n";
+    } else{
+        cout << "kmpSearchTest1: FAIL\n";
+    }
 }
 
 int main() {
     piTableTest();
+    kmpSearchTest1();
     return 0; 
 }
