@@ -47,7 +47,7 @@ vector<int> kmpSearch (const string &text, const string &pattern){ // the main f
     return patternsFound; // returns indexes of matched patterns
 }
 
-
+/*
 int main() {
     string text = "ZZABABACABCEYYABABACABCEZZ";
     string pattern = "ABABACABCE";
@@ -72,4 +72,4 @@ int main() {
     cout << "\n";
 
     return 0;
-}
+}*/
