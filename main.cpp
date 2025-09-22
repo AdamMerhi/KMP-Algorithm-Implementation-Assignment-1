@@ -40,16 +40,20 @@ void runKmpTest(const string &testName, const vector<int> &output, const vector<
 }
 
 //BELOW IS PI TABLE TESTING
-void piTableTest(){
+void piTableTest1(){
     string pattern = "ABABACABCE";
     vector<int> expected {0,0,1,2,3,0,1,2,0,0};
     vector<int> output = piTablePopulation(pattern);    
 
-    if (vecCompare(output, expected)){
-        cout << "piTableTest: PASS\n";
-    } else {
-        cout << "piTableTest: FAIL\n";
-    }
+    RUN_KMP_TEST(output, expected);
+}
+
+void piTableTest2(){
+    string pattern = "AAAAABAAA";
+    vector<int> expected {0,1,2,3,4,0,1,2,3};
+    vector<int> output = piTablePopulation(pattern);    
+
+    RUN_KMP_TEST(output, expected);
 }
 
 //BELOW IS KMP TESTING
@@ -135,7 +139,8 @@ void testKMPvsNAIVE() {
 }
 
 int main() {
-    piTableTest();
+    piTableTest1();
+    piTableTest2();    
     kmpSearchTest1();
     kmpSearchTest2();
     kmpSearchTest3();
