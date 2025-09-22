@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <chrono>
 #include "Knuth-Morris-Pratt Algorithm.cpp"
 
 bool vecCompare (const vector<int>& a, const vector<int>& b){ //declares two vectors which cannot be modified. Data referenced
@@ -50,6 +51,36 @@ void kmpSearchTest1(){
     } else{
         cout << "kmpSearchTest1: FAIL\n";
     }
+}
+
+vector<int> naiveMethod(const string &text, const string &pattern){ // creation of naive method | Helper for the test- the slow version of kmp which has a time complexity of 0(mn) instead of kmp which has o(m+n)
+    vector<int> match;
+
+    for(int i =0; i <= text.size() - pattern.size(); i++){
+        int j = 0;
+        while (j < pattern.size() && text[i + j] == pattern[j]){
+            if( j == pattern.size()) match.push_back(i);
+        }
+        return match;
+    }
+}
+
+void testKMPvsNAIVE() {
+    int textSize = 50000;
+    int patternSize = 5000;
+
+    string text(textSize, 'a');
+    string pattern (patternSize, 'a');
+
+    auto startNaive = chrono::high_resolution_clock::now();// this block tests naive method time
+    naiveMethod(text, pattern);
+    auto stopNaive = chrono::high_resolution_clock::now();
+
+    auto startKmp = chrono::high_resolution_clock::now();// this block tests KMP method time
+    kmpSearch(text, pattern);
+    auto stopKmp = chrono::high_resolution_clock::now();
+
+
 }
 
 int main() {

@@ -46,30 +46,3 @@ vector<int> kmpSearch (const string &text, const string &pattern){ // the main f
     }
     return patternsFound; // returns indexes of matched patterns
 }
-
-/*
-int main() {
-    string text = "ZZABABACABCEYYABABACABCEZZ";
-    string pattern = "ABABACABCE";
-    vector<int> pi = piTablePopulation(pattern);
-
-    cout << "pattern: " << pattern << "\n";
-    cout << "Pi Table: ";
-    
-    for (int v : pi){
-        cout << v << " ";
-    }
-    cout << "\n";
-
-    vector<int> patternsFound = kmpSearch(text, pattern);
-
-    cout << "Text: " << text << "\n";
-    cout << "Pattern found at indices(s): ";
-
-    for(int i : patternsFound){
-        cout << i << " ";
-    }
-    cout << "\n";
-
-    return 0;
-}*/
