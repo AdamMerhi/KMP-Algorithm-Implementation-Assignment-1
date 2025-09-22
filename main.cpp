@@ -14,8 +14,20 @@ bool vecCompare (const vector<int>& a, const vector<int>& b){ //declares two vec
     return true;
 }
 
-int main() {
+void piTableTest(){
     string pattern = "ABABACABCE";
-    std::vector<int> result {0,0,1,2,0,0,1,2,0,0};
+    std::vector<int> result {0,0,1,2,3,0,1,2,0,0};
     std::vector<int> output = piTablePopulation(pattern);    
+
+    if (vecCompare(output, result)){
+        cout << "piTableTest: PASS\n";
+    } else {
+        cout << "piTableTest: FAIL\n";
+    }
+
+}
+
+int main() {
+    piTableTest();
+    return 0; 
 }
