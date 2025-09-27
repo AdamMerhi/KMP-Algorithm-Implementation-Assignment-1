@@ -112,6 +112,15 @@ void emptyPatternTest(){
     RUN_KMP_TEST(output, expected);
 }
 
+void emptyStringTest(){
+    string text = "";
+    string pattern = "aaa";
+    vector<int> expected {};
+    vector<int> output = kmpSearch(text, pattern);
+
+    RUN_KMP_TEST(output, expected);
+}
+
 vector<int> naiveMethod(const string &text, const string &pattern){ // creation of naive method | Helper for the test- the slow version of kmp which has a time complexity of 0(mn) instead of kmp which has o(m+n)
     vector<int> match;
 
@@ -156,6 +165,7 @@ int main() {
     kmpNoMatchTest();
     kmpCaseSensitive();
     emptyPatternTest();
+    emptyStringTest();
     testKMPvsNAIVE(); 
     return 0; 
 }
